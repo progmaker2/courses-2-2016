@@ -1,7 +1,9 @@
-package com.courses.spalah.service;
+package main.java.com.courses.spalah.service;
 
 import com.courses.spalah.common.Format;
+
 import com.courses.spalah.model.CarParking;
+
 
 /**
  * Фабрика для создания сериализатора и десериализатора для конкретного типа файла
@@ -19,7 +21,9 @@ public class SerializationFactory {
      */
     public static CarParkingDeserializer getDeserializer(Format format) {
         // TODO - здесь будет ваша логика. Необходимо вернуть реализацию интерфейса
+
         return new DeSerializator();
+
     }
 
     /**
