@@ -1,4 +1,4 @@
-package main.java.com.courses.spalah.service;
+package com.courses.spalah.service;
 
 import com.courses.spalah.model.CarParking;
 
