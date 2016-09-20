@@ -99,6 +99,13 @@
         <processorPath useClasspath="true" />
         <module name="module16" />
       </profile>
+      <profile default="false" name="Annotation profile for module17" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="module17" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="module10" target="1.8" />
@@ -108,6 +115,7 @@
       <module name="module14" target="1.8" />
       <module name="module15" target="1.8" />
       <module name="module16" target="1.8" />
+      <module name="module17" target="1.8" />
       <module name="module2" target="1.8" />
       <module name="module3" target="1.8" />
       <module name="module4" target="1.8" />
