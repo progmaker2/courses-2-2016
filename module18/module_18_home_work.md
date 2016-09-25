@@ -25,8 +25,9 @@
  * Для того, чтобы развернуть ваше приложение на `tomcat`, вам необходимо:
    * Собрать ваше приложение с помощью `maven`. Для этого в `Intellij` откройте вкладку maven проекты, выберите `module18`, выберите пункт `Lifecycle`.
    Выделите пункты `clean` и `install` и нажмите зеленую кнопку `Run`.
-   ![](https://github.com/rxn1d/courses-2-2016/blob/master/module18/maven.png "Application")
+   ![](https://github.com/rxn1d/courses-2-2016/blob/master/module18/maven2.png "Maven")
    * После этого вы должны скопировать `module18.war` в папку `webapps` в томкате.
    * Для того, чтобы запустить `tomcat`, необходимо вызвать `startup.bat` в папке `bin` в томкате. Для того, чтобы остановить
    `tomcat`, необходимо вызвать `shutdwon.bat` в той же папке.
+   ![](https://github.com/rxn1d/courses-2-2016/blob/master/module18/tomcat_bin.png "Maven")
 
