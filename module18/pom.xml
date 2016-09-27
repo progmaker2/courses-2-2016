@@ -37,6 +37,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>module18</finalName>
     </build>
 
 </project>
