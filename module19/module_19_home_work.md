@@ -26,7 +26,7 @@
       @ToTable("persons")
       class Person {
         @ToColumn("id")
-        private long id;
+        private int id;
         @ToColumn("first_name")
         private String modelName;
         @ToColumn("last_name")
