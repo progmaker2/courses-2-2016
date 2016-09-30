@@ -5,9 +5,11 @@
    * [Test Driven Development: By Example](https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530/ref=sr_1_1?s=books&ie=UTF8&qid=1475246368&sr=1-1&keywords=Test+Driven+Development%3A+By+Example)
    * [JUnit in Action, Second Edition](https://www.amazon.com/JUnit-Action-Second-Edition-Tahchiev/dp/1935182021?tag=javamysqlanta-20)
  * Ресурсы:
-   + [Ссылка #1](https://habrahabr.ru/post/169381/)
-   + [Ссылка #2](https://habrahabr.ru/post/120101/)
-   + [Ссылка #3](http://tutorials.jenkov.com/java-unit-testing/index.html)
+   + [JUnit](http://junit.org/junit4/)
+   + [Mockito](http://mockito.org/)
+   + [Туториал #1](http://tutorials.jenkov.com/java-unit-testing/index.html)
+   + [Туториал #2](http://www.tutorialspoint.com/junit/)
+   + [Туториал #3](http://www.mkyong.com/tutorials/junit-tutorials/)
  * Дополнительно смотрим:
    + BDD
    + Интеграционные тесты
