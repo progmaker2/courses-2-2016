@@ -18,5 +18,5 @@ public class CreditCalculatorRunnerTest {
         String [] args = new String [0];
         CreditCalculatorRunner.main(args);
         assertEquals(true,CreditCalculatorRunner.isOk);
-    }
+    } 
 }
