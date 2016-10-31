@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by Roman on 29.10.2016.
@@ -17,6 +18,7 @@ public class DataBaseManager {
     private static final String READ_PERSON;
     private static final String INSERT_PERSON_STRING;
     private static final String INSERT_ADRESS_STRING;
+    private static final String READ_ALL_PERSONS;
     public Connection connection;
     static {
         CREATE_PERSON_STRING = "Create Table  IF NOT EXISTS People.person\n" +
@@ -40,6 +42,13 @@ public class DataBaseManager {
                 "FROM people.person t1 " +
                 "LEFT JOIN people.adress t2 on t1.adress_id = t2.id " +
                 "WHERE t1.id =";
+        READ_ALL_PERSONS = "SELECT t1.id," +
+                "t1.first_name," +
+                "t1.last_name," +
+                "t1.adress_id," +
+                "t2.adress " +
+                "FROM people.person t1 " +
+                "LEFT JOIN people.adress t2 on t1.adress_id = t2.id ";
         INSERT_PERSON_STRING = "insert into People.person (first_name, last_name, adress_id) values (?,?,?);\n";
         INSERT_ADRESS_STRING = "insert into People.adress (adress) values (?);\n";
     }
@@ -79,6 +88,7 @@ public class DataBaseManager {
             if (rs.next()) {
                 result = rs.getInt(1);
             }
+            psSelectPerson.close();
         }
         catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -97,6 +107,7 @@ public class DataBaseManager {
             psSelectPerson.setString(2, person.getLast_name());
             psSelectPerson.setInt(3, person.getAdress().getId());
             result = psSelectPerson.executeUpdate();
+            psSelectPerson.close();
         }
         catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -126,5 +137,26 @@ public class DataBaseManager {
                 System.err.println(e.getMessage());
         }
         return new Person(id, first_name, last_name, adress);
+    }
+    public ArrayList<Person> getAllPersons () {
+        ArrayList<Person> result = new ArrayList<Person>();
+        Adress adress = new Adress();
+        try {
+            System.out.println(READ_ALL_PERSONS);
+            Person onePerson = new Person();
+            Statement statement = (Statement) this.connection.createStatement();
+            ResultSet rs = statement.executeQuery(READ_ALL_PERSONS);
+            while (rs.next()) {
+                onePerson.setId(rs.getInt("id"));
+                onePerson.setFirst_name(rs.getString("first_name"));
+                onePerson.setLast_name(rs.getString("last_name"));
+                onePerson.setAdress(new Adress(rs.getInt("adress_id"),rs.getString("adress")));
+                result.add(onePerson);
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return result;
     }
 }
