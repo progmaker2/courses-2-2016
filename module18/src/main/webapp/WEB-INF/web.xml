@@ -11,7 +11,11 @@
 
     <servlet>
         <servlet-name>test</servlet-name>
+<<<<<<< HEAD
         <servlet-class>com.courses.spalah.UserAdmin</servlet-class>
+=======
+        <servlet-class>com.courses.spalah.TestGenericServlet</servlet-class>
+>>>>>>> bf28f85dd980f4aab1aec07ba8bea24d0531e8f6
         <load-on-startup>1</load-on-startup>
     </servlet>
 

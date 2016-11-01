@@ -1,6 +1,6 @@
 package com.courses.spalah;
 
-import main.java.com.courses.spalah.SimpleCalculator;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

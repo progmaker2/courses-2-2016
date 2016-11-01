@@ -33,4 +33,8 @@ public class JdbcExample {
         DriverManager.registerDriver(new com.mysql.jdbc.Driver()); // или любой другой драйвер
         Class.forName("com.mysql.jdbc.Driver");
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bf28f85dd980f4aab1aec07ba8bea24d0531e8f6
