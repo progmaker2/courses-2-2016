@@ -167,10 +167,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="module26" />
+        <module name="jpa" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="jpa" target="1.5" />
       <module name="module10" target="1.8" />
       <module name="module11" target="1.8" />
       <module name="module12" target="1.8" />
