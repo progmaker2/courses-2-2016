@@ -162,6 +162,13 @@
         <processorPath useClasspath="true" />
         <module name="module25" />
       </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="module26" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="module10" target="1.8" />
@@ -181,6 +188,7 @@
       <module name="module23" target="1.8" />
       <module name="module24" target="1.8" />
       <module name="module25" target="1.8" />
+      <module name="module26" target="1.5" />
       <module name="module3" target="1.8" />
       <module name="module4" target="1.8" />
       <module name="module5" target="1.8" />
