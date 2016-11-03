@@ -40,29 +40,28 @@ public class AdminPage {
                 "</form>";
     }
     public AdminPage () {
-        DataBaseManager dbManager = new DataBaseManager((Connection) new ConnectionManager().getConnection());
-        ArrayList<Person> persons = dbManager.getAllPersons();
-        while(persons.iterator().hasNext()) {
-            this.Content.add(persons.iterator().next().getId(), persons.iterator().next());
-        }
+        DataBaseManager dbManager = new DataBaseManager();
+        this.Content = dbManager.getAllPersons();
     }
     public String getContent(String beforeContent) {
         String finalContent = PAGE_HEAD+PAGE_BODY_START+beforeContent+CONTROLL_FORMS;
-        while(Content.iterator().hasNext()) {
-            finalContent += getHTMLPerson(Content.iterator().next());
+        for(Person element:Content) {
+            finalContent += getHTMLPerson(element);
         }
         return finalContent+PAGE_BODY_END;
     }
     public void addElement(Person element) {
-        Content.add(element.getId(), element);
+        Content.add(element);
+        DataBaseManager dbManager = new DataBaseManager();
+        dbManager.savePerson(element);
     }
     public void removeElement(int id) {
-        Content.remove(id);
+        Content.remove(this.findDefiniteElement(id));
     }
 
     public String getContentByOnePerson(int id) {
         String finalContent = PAGE_HEAD+PAGE_BODY_START;
-        finalContent += getHTMLPerson(Content.get(id));
+        finalContent += getHTMLPerson(Content.get(this.findDefiniteElement(id)));
         return finalContent+PAGE_BODY_END;
     }
     public String getHTMLPerson(Person person) {
@@ -74,4 +73,11 @@ public class AdminPage {
                 "</tr></table>";
     }
 
+    public int findDefiniteElement (int id) {
+        for(Person element:Content) {
+            if(element.equals(new Person(id)))
+                return Content.indexOf(element);
+        }
+        return -1;
+    }
 }

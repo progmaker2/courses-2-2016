@@ -19,7 +19,6 @@ public class DataBaseManager {
     private static final String INSERT_PERSON_STRING;
     private static final String INSERT_ADRESS_STRING;
     private static final String READ_ALL_PERSONS;
-    public Connection connection;
     static {
         CREATE_PERSON_STRING = "Create Table  IF NOT EXISTS People.person\n" +
                 "(\n" +
@@ -53,10 +52,10 @@ public class DataBaseManager {
         INSERT_ADRESS_STRING = "insert into People.adress (adress) values (?);\n";
     }
 
-    public DataBaseManager(Connection connection) {
-        this.connection = connection;
+    public DataBaseManager() {
+        Connection connection = (Connection) new ConnectionManager().getConnection();
         try {
-            Statement statement = (Statement) this.connection.createStatement();
+            Statement statement = (Statement) connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT count(*) FROM People.person");
             int columnCount = rs.getMetaData().getColumnCount();
         }
@@ -65,22 +64,44 @@ public class DataBaseManager {
                 init ();
             else
                 System.err.println(e.getMessage());
+            try {
+                connection.close();
+            } catch (SQLException e3) {
+                e3.printStackTrace();
+            }
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     public void init () {
+        Connection connection = (Connection) new ConnectionManager().getConnection();
         try {
-            Statement statement = (Statement) this.connection.createStatement();
+            Statement statement = (Statement) connection.createStatement();
             int rs = statement.executeUpdate(CREATE_PERSON_STRING);
             int rs2 = statement.executeUpdate(CREATE_ADRESS_STRING);
         }
         catch (SQLException e) {
             System.err.println(e.getMessage());
+            try {
+                connection.close();
+            } catch (SQLException e3) {
+                e3.printStackTrace();
+            }
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     public int saveAdress (Adress adress) {
+        Connection connection = (Connection) new ConnectionManager().getConnection();
         int result = 0;
         try {
-            PreparedStatement psSelectPerson = this.connection.prepareStatement(INSERT_ADRESS_STRING, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement psSelectPerson = connection.prepareStatement(INSERT_ADRESS_STRING, Statement.RETURN_GENERATED_KEYS);
             psSelectPerson.setString(1, adress.getAdress());
             result = psSelectPerson.executeUpdate();
             ResultSet rs = psSelectPerson.getGeneratedKeys();
@@ -92,40 +113,64 @@ public class DataBaseManager {
         }
         catch (SQLException e) {
             System.err.println(e.getMessage());
+            try {
+                connection.close();
+            } catch (SQLException e3) {
+                e3.printStackTrace();
+            }
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return result;
     }
-    public boolean savePerson (Person person) {
+    public int savePerson (Person person) {
         int idAdress = saveAdress(person.getAdress());
         if(idAdress == 0)
-            return false;
+            return 0;
+        Connection connection = (Connection) new ConnectionManager().getConnection();
         person.setAdress(new Adress(idAdress,person.getAdress().getAdress()));
         int result = 0;
         try {
-            PreparedStatement psSelectPerson = this.connection.prepareStatement(INSERT_PERSON_STRING);
+            PreparedStatement psSelectPerson = connection.prepareStatement(INSERT_PERSON_STRING, Statement.RETURN_GENERATED_KEYS);
             psSelectPerson.setString(1, person.getFirst_name());
             psSelectPerson.setString(2, person.getLast_name());
             psSelectPerson.setInt(3, person.getAdress().getId());
             result = psSelectPerson.executeUpdate();
+            ResultSet rs = psSelectPerson.getGeneratedKeys();
+
+            if (rs.next()) {
+                result = rs.getInt(1);
+            }
             psSelectPerson.close();
         }
         catch (SQLException e) {
             System.err.println(e.getMessage());
+            try {
+                connection.close();
+            } catch (SQLException e3) {
+                e3.printStackTrace();
+            }
         }
-        if(result > 0)
-            return true;
-        else
-            return false;
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
     public Person readPerson (int id) {
         if(id == 0)
             return null;
+        Connection connection = (Connection) new ConnectionManager().getConnection();
         String first_name = "";
         String last_name = "";
         Adress adress = new Adress();
         try {
             System.out.println(READ_PERSON+id+" AND 1=1;");
-            Statement statement = (Statement) this.connection.createStatement();
+            Statement statement = (Statement) connection.createStatement();
             ResultSet rs = statement.executeQuery(READ_PERSON+id+" AND 1=1;");
             rs.next();
             id = rs.getInt("id");
@@ -135,18 +180,30 @@ public class DataBaseManager {
         }
         catch (SQLException e) {
                 System.err.println(e.getMessage());
+            try {
+                connection.close();
+            } catch (SQLException e3) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return new Person(id, first_name, last_name, adress);
     }
     public ArrayList<Person> getAllPersons () {
+        Connection connection = (Connection) new ConnectionManager().getConnection();
         ArrayList<Person> result = new ArrayList<Person>();
         Adress adress = new Adress();
         try {
             System.out.println(READ_ALL_PERSONS);
-            Person onePerson = new Person();
-            Statement statement = (Statement) this.connection.createStatement();
+
+            Statement statement = (Statement) connection.createStatement();
             ResultSet rs = statement.executeQuery(READ_ALL_PERSONS);
             while (rs.next()) {
+                Person onePerson = new Person();
                 onePerson.setId(rs.getInt("id"));
                 onePerson.setFirst_name(rs.getString("first_name"));
                 onePerson.setLast_name(rs.getString("last_name"));
@@ -156,6 +213,16 @@ public class DataBaseManager {
         }
         catch (SQLException e) {
             System.err.println(e.getMessage());
+            try {
+                connection.close();
+            } catch (SQLException e3) {
+                e3.printStackTrace();
+            }
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return result;
     }

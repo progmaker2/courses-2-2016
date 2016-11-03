@@ -17,13 +17,14 @@ public class AdressBook {
 
         FormCreator createForm = new FormCreator();
         createForm.init();
-        DataBaseManager dbManager = new DataBaseManager((Connection) new ConnectionManager().getConnection());
+        DataBaseManager dbManager = new DataBaseManager();
         createForm.getSaveButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Person person = new Person(0, createForm.getFirstRow().textField1.getText(), createForm.getFirstRow().textField2.getText(), new Adress(0,createForm.getFirstRow().textField3.getText()));
-                if(dbManager.savePerson(person))
-                    JOptionPane.showMessageDialog(new JFrame(), "Saved", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                int savedPersonId = dbManager.savePerson(person);
+                if(savedPersonId > 0)
+                    JOptionPane.showMessageDialog(new JFrame(), "Person saved with ID "+savedPersonId+"!", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                 else
                     JOptionPane.showMessageDialog(new JFrame(), "Error!", "Error", JOptionPane.ERROR_MESSAGE);
             }

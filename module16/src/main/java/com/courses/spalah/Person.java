@@ -3,7 +3,7 @@ package com.courses.spalah;
 /**
  * Created by Roman on 29.10.2016.
  */
-public class Person {
+public class Person implements PersonBehavior {
     private int id;
     private String first_name;
     private String last_name;
@@ -25,6 +25,9 @@ public class Person {
         this.first_name = first_name;
         this.last_name = last_name;
         this.adress = adress;
+    }
+    public Person(int id) {
+        this.id = id;
     }
 
     public String getFirst_name() {
@@ -49,5 +52,12 @@ public class Person {
 
     public void setAdress(Adress adress) {
         this.adress = adress;
+    }
+
+    @Override
+    public boolean equals(Person b) {
+        int temp = b.getId();
+        if (temp == this.getId()) return true;
+        else return false;
     }
 }
