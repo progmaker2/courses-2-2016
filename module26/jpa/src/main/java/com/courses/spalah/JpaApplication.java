@@ -14,7 +14,7 @@ import com.courses.spalah.service.BookService;
  * @author Ievgen Tararaka
  */
 public class JpaApplication {
-    private static final String PERSISTENCE_UNIT = "com.courses.spalah.jpa";
+    private static final String PERSISTENCE_UNIT = "com.courses.spalah.jpa.mysql";
 
     public static void main(String[] args) {
         EntityManager entityManager = initEntityManager();
@@ -26,7 +26,7 @@ public class JpaApplication {
         updateBooks(entityManager, bookShelf);
 
         entityManager.close();
-    }
+     }
 
     private static void test() {
         // Используем Persistence класс для получения EntityManagerFactory.
