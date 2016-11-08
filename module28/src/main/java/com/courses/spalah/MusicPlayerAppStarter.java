@@ -14,19 +14,9 @@ public class MusicPlayerAppStarter {
 
         MusicPlayerApp musicPlayerApp = applicationContext.getBean("musicApp", MusicPlayerApp.class);
         musicPlayerApp.play();
-        MusicPlayerApp musicPlayerApp1 = applicationContext.getBean("musicApp", MusicPlayerApp.class);
-        MusicPlayerApp musicPlayerApp2 = applicationContext.getBean("musicApp", MusicPlayerApp.class);
-        MusicPlayerApp musicPlayerApp3 = applicationContext.getBean("musicApp", MusicPlayerApp.class);
         System.out.println(musicPlayerApp);
-        System.out.println(musicPlayerApp1);
-        System.out.println(musicPlayerApp2);
-        System.out.println(musicPlayerApp3);
 
         TrackReader trackReader = applicationContext.getBean("trackReader", TrackReader.class);
-        System.out.println(trackReader);
-        trackReader = applicationContext.getBean("trackReader", TrackReader.class);
-        System.out.println(trackReader);
-        trackReader = applicationContext.getBean("trackReader", TrackReader.class);
         System.out.println(trackReader);
     }
 }
