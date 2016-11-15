@@ -22,14 +22,14 @@ public class DataBaseManager {
     static {
         CREATE_PERSON_STRING = "Create Table  IF NOT EXISTS People.person\n" +
                 "(\n" +
-                "id int NOT NULL AUTO_INCREMENT,\n" +
+                "id BIGINT NOT NULL AUTO_INCREMENT,\n" +
                 "first_name varchar(255),\n" +
                 "last_name varchar(255),\n" +
                 "adress_id int,\n" +
                 "primary key(id)\n" +
                 ");";
         CREATE_ADRESS_STRING = "CREATE TABLE if not exists People.adress (\n" +
-                "  id      INT NOT NULL AUTO_INCREMENT,\n" +
+                "  id      BIGINT NOT NULL AUTO_INCREMENT,\n" +
                 "  adress VARCHAR(255),\n" +
                 "  primary key(id)" +
                 ");";
@@ -137,7 +137,7 @@ public class DataBaseManager {
             PreparedStatement psSelectPerson = connection.prepareStatement(INSERT_PERSON_STRING, Statement.RETURN_GENERATED_KEYS);
             psSelectPerson.setString(1, person.getFirst_name());
             psSelectPerson.setString(2, person.getLast_name());
-            psSelectPerson.setInt(3, person.getAdress().getId());
+            psSelectPerson.setLong(3, person.getAdress().getId());
             result = psSelectPerson.executeUpdate();
             ResultSet rs = psSelectPerson.getGeneratedKeys();
 
@@ -161,7 +161,7 @@ public class DataBaseManager {
         }
         return result;
     }
-    public Person readPerson (int id) {
+    public Person readPerson (long id) {
         if(id == 0)
             return null;
         Connection connection = (Connection) new ConnectionManager().getConnection();
@@ -173,7 +173,7 @@ public class DataBaseManager {
             Statement statement = (Statement) connection.createStatement();
             ResultSet rs = statement.executeQuery(READ_PERSON+id+" AND 1=1;");
             rs.next();
-            id = rs.getInt("id");
+            id = rs.getLong("id");
             first_name = rs.getString("first_name");
             last_name = rs.getString("last_name");
             adress = new Adress(rs.getInt("adress_id"), rs.getString("adress"));
@@ -204,7 +204,7 @@ public class DataBaseManager {
             ResultSet rs = statement.executeQuery(READ_ALL_PERSONS);
             while (rs.next()) {
                 Person onePerson = new Person();
-                onePerson.setId(rs.getInt("id"));
+                onePerson.setId(rs.getLong("id"));
                 onePerson.setFirst_name(rs.getString("first_name"));
                 onePerson.setLast_name(rs.getString("last_name"));
                 onePerson.setAdress(new Adress(rs.getInt("adress_id"),rs.getString("adress")));

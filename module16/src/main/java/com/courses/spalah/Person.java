@@ -4,29 +4,33 @@ package com.courses.spalah;
  * Created by Roman on 29.10.2016.
  */
 public class Person implements PersonBehavior {
-    private int id;
+    private long id;
     private String first_name;
     private String last_name;
     private Adress adress;
+    private String inn;
+    {
+        inn = null;
+    }
 
     public Person() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Person(int id, String first_name, String last_name, Adress adress) {
+    public Person(long id, String first_name, String last_name, Adress adress) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.adress = adress;
     }
-    public Person(int id) {
+    public Person(long id) {
         this.id = id;
     }
 
@@ -56,8 +60,16 @@ public class Person implements PersonBehavior {
 
     @Override
     public boolean equals(Person b) {
-        int temp = b.getId();
+        long temp = b.getId();
         if (temp == this.getId()) return true;
         else return false;
+    }
+
+    public String getInn() {
+        return inn;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
     }
 }
